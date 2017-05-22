@@ -2,18 +2,34 @@
  * Created by Kyle on 5/19/17.
  */
 import React, {Component} from 'react';
-import FormInput from './FormInput';
+import {Button, Form, FormGroup, Label, Input, FormText} from 'reactstrap';
 
 class RegisterForm extends Component{
     render(){
         return(
-            <form>
-                <FormInput label="First Name" name="firstName"/>
-                <FormInput label="Last Name" name="lastName"/>
-                <FormInput label="Email" type="email" name="email"/>
-                <FormInput label="Password" type="password" name="password"/>
-                <button type="button" className="btn btn-primary btn-lg btn-block">Register</button>
-            </form>
+            <Form>
+                <FormGroup>
+                    <Label for="firstName">First Name</Label>
+                    <Input type="text" name="firstName" id="firstName" placeholder="First Name"/>
+                </FormGroup>
+
+                <FormGroup>
+                    <Label for="lastName">Last Name</Label>
+                    <Input type="text" name="lastName" id="lastName" placeholder="Last Name"/>
+                </FormGroup>
+
+                <FormGroup>
+                    <Label for="email">Email</Label>
+                    <Input type="email" name="email" id="email" placeholder="Email"/>
+                </FormGroup>
+
+                <FormGroup>
+                    <Label for="password">Password</Label>
+                    <Input type="password" name="password" id="password" placeholder="Password"/>
+                </FormGroup>
+
+                <Button color="primary" block={true} size="lg">Register</Button>
+            </Form>
 
         )
     }
