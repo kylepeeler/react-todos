@@ -28,7 +28,14 @@ class RegisterForm extends Component{
                     <Input type="password" name="password" id="password" placeholder="Password"/>
                 </FormGroup>
 
-                <Button color="primary" block={true} size="lg">Register</Button>
+                <FormGroup>
+                    <Label for="confirmPassword">Confirm Password</Label>
+                    <Input type="password" name="confirmPassword" id="confirmPassword" placeholder=" Confirm Password"/>
+                </FormGroup>
+
+                <Button color="primary">Register</Button>
+                <Button color="link">Return to login</Button>
+
             </Form>
 
         )

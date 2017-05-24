@@ -1,8 +1,8 @@
 .app-header-wrapper {
     text-align: center;
     color: #000;
-    padding-left: 0!important;
-    padding-right: 0!important;
+    /*padding-left: 0!important;*/
+    /*padding-right: 0!important;*/
 }
 
 .app-logo {
@@ -13,7 +13,8 @@
 .app-header {
     background-color: #aaaaaa;
     height: 170px;
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     color: white;
 }
 

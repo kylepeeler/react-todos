@@ -3,13 +3,16 @@
  */
 import React, {Component} from 'react';
 import {Container, Row, Col} from 'reactstrap';
+import AppNav from './AppNav';
 import logo from '../logo.svg';
 import './AppHeader.css';
 
 class AppHeader extends Component{
+
     render(){
         return(
             <Container fluid={true} className="app-header-wrapper">
+                <AppNav/>
                 <Row>
                     <Col>
                         <div className="app-header">
