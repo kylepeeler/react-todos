@@ -1,6 +1,4 @@
-/**
- * Created by Kyle on 5/19/17.
- */
+
 /*global _ps*/
 
 import React, {Component} from 'react';
@@ -14,7 +12,7 @@ class RegisterForm extends Component{
     }
 
     registerUser(){
-        if(!_ps.getByKey("example-click-wrap").allChecked()){
+        if(!_ps.getByKey("terms-and-conditions").allChecked()){
             alert("You must agree to our Terms & Conditions before registering!");
         }
         //code to register the user with backend would go here
