@@ -2,13 +2,15 @@
  * Created by Kyle on 5/19/17.
  */
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import { Button } from 'reactstrap';
 
 class LogInButtons extends Component{
     render(){
         return(
             <div>
-                <button type="button" className="btn btn-primary btn-lg btn-block">Log in</button>
-                <button type="button" className="btn btn-secondary btn-lg btn-block">Sign up</button>
+                <Button color="primary" tag={Link} to="/todos" block={true}>Log In</Button>
+                <Button color="secondary" tag={Link} to="/register" block={true}>Sign Up</Button>
             </div>
         )
     }

@@ -1,19 +1,59 @@
 /**
  * Created by Kyle on 5/19/17.
  */
+/*global _ps*/
+
 import React, {Component} from 'react';
-import FormInput from './FormInput';
+import {Button, Form, FormGroup, Label, Input, FormText} from 'reactstrap';
+import PSClickWrap from '../pactsafe-react-sdk/PSClickWrap';
 
 class RegisterForm extends Component{
+    constructor(props){
+        super(props);
+
+    }
+
+    registerUser(){
+        if(!_ps.getByKey("example-click-wrap").allChecked()){
+            alert("You must agree to our Terms & Conditions before registering!");
+        }
+        //code to register the user with backend would go here
+    }
+
     render(){
         return(
-            <form>
-                <FormInput label="First Name" name="firstName"/>
-                <FormInput label="Last Name" name="lastName"/>
-                <FormInput label="Email" type="email" name="email"/>
-                <FormInput label="Password" type="password" name="password"/>
-                <button type="button" className="btn btn-primary btn-lg btn-block">Register</button>
-            </form>
+            <Form>
+                <FormGroup>
+                    <Label for="firstName">First Name</Label>
+                    <Input type="text" name="firstName" id="firstName" placeholder="First Name"/>
+                </FormGroup>
+
+                <FormGroup>
+                    <Label for="lastName">Last Name</Label>
+                    <Input type="text" name="lastName" id="lastName" placeholder="Last Name"/>
+                </FormGroup>
+
+                <FormGroup>
+                    <Label for="email">Email</Label>
+                    <Input type="email" name="email" id="email" placeholder="Email"/>
+                </FormGroup>
+
+                <FormGroup>
+                    <Label for="password">Password</Label>
+                    <Input type="password" name="password" id="password" placeholder="Password"/>
+                </FormGroup>
+
+                <FormGroup>
+                    <Label for="confirmPassword">Confirm Password</Label>
+                    <Input type="password" name="confirmPassword" id="confirmPassword" placeholder=" Confirm Password"/>
+                </FormGroup>
+
+                <PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" groupKey="terms-and-conditions" signerIDSelector="email" testMode={true}/>
+
+                <Button color="primary" onClick={this.registerUser}>Register</Button>
+                <Button color="link">Return to login</Button>
+
+            </Form>
 
         )
     }
