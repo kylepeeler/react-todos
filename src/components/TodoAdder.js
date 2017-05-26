@@ -1,10 +1,10 @@
 /**
  * Created by Kyle on 5/23/17.
  */
-import React, {Component} from 'react';
+import React from 'react';
 import {Form, InputGroup, Input, Button, InputGroupButton} from 'reactstrap';
 
-class TodoAdder extends Component{
+class TodoAdder extends React.Component{
     constructor(props){
         super(props);
         this.addTodo = this.addTodo.bind(this);

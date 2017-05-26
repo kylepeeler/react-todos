@@ -1,13 +1,12 @@
 /**
  * Created by Kyle on 5/19/17.
  */
-import React, { Component } from 'react';
-import {Container, Row, Col} from 'reactstrap';
-import AppHeader from './AppHeader';
+import React from 'react';
+import {Row} from 'reactstrap';
 import RegisterForm from './RegisterForm';
 
-class RegisterView extends Component{
-    render(){
+class RegisterView extends React.Component {
+    render() {
         return (
             <Row>
                 <div className="container">

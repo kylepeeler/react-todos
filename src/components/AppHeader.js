@@ -1,23 +1,23 @@
 /**
  * Created by Kyle on 5/19/17.
  */
-import React, {Component} from 'react';
+import React from 'react';
 import {Container, Row, Col} from 'reactstrap';
 import AppNav from './AppNav';
 import logo from '../logo.svg';
 import './AppHeader.css';
 
-class AppHeader extends Component{
+class AppHeader extends React.Component {
 
-    render(){
-        return(
+    render() {
+        return (
             <Container fluid={true} className="app-header-wrapper">
-                <AppNav/>
+                <AppNav {...this.props.location}/>
                 <Row>
                     <Col>
                         <div className="app-header">
-                            <img src={logo} className="app-logo" alt="logo" />
-                            <h2>Example App</h2>
+                            <img src={logo} className="app-logo" alt="logo"/>
+                            <h2>PactSafe To-dos</h2>
                             <h5>{this.props.pageTitle}</h5>
                         </div>
                     </Col>

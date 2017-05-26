@@ -1,13 +1,13 @@
 /**
  * Created by Kyle on 5/19/17.
  */
-import React, {Component} from 'react';
-import {Button, Form, FormGroup, Label, Input, FormText} from 'reactstrap';
+import React from 'react';
+import {Form, FormGroup, Label, Input} from 'reactstrap';
 import LogInButtons from './LogInButtons';
 
-class SignInForm extends Component{
-    render(){
-        return(
+class SignInForm extends React.Component {
+    render() {
+        return (
             <Form>
                 <FormGroup>
                     <Label for="email">Email</Label>

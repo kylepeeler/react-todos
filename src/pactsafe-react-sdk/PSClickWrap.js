@@ -32,8 +32,24 @@ class PSClickWrap extends React.Component{
     componentDidMount(){
 
         _ps('create', this.props.accessId, {test_mode: this.props.testMode, disable_sending: this.props.disableSending});
-        _ps('load', this.props.groupKey, {container_selector: this.containerSelector, signer_id_selector: this.props.signerIDSelector});
-
+        if (this.props.groupKey){
+            _ps('load', this.props.groupKey, {
+                filter: this.props.filter,
+                container_selector: this.containerSelector,
+                signer_id_selector: this.props.signerIDSelector,
+            });
+            console.log({
+                filter: this.props.filter,
+                container_selector: this.containerSelector,
+                signer_id_selector: this.props.signerIDSelector,
+            });
+        }else {
+            _ps('load', {
+                filter: this.props.filter,
+                container_selector: this.containerSelector,
+                signer_id_selector: this.props.signerIDSelector
+            });
+        }
     }
 
     componentWillUnmount(){
@@ -51,10 +67,11 @@ export default PSClickWrap;
 
 PSClickWrap.propTypes = {
     accessId: PropTypes.string.isRequired,
-    groupKey: PropTypes.string.isRequired,
+    groupKey: PropTypes.string,
     signerIDSelector: PropTypes.string.isRequired,
     containerSelector: PropTypes.string,
     testMode: PropTypes.bool,
-    disableSending: PropTypes.bool
+    disableSending: PropTypes.bool,
+    filter: PropTypes.string
 };
 

@@ -1,14 +1,12 @@
 /**
  * Created by Kyle on 5/19/17.
  */
-import React, { Component } from 'react';
-import {Container, Row, Col} from 'reactstrap';
-
-import AppHeader from './AppHeader';
+import React from 'react';
+import {Container, Row} from 'reactstrap';
 import SignInForm from './SignInForm';
 
-class SignInView extends Component{
-    render(){
+class SignInView extends React.Component {
+    render() {
         return (
             <Row>
                 <Container>

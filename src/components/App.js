@@ -7,30 +7,31 @@ import RegisterView from './RegisterView'
 import SignInView from './SignInView';
 import TodoView from './TodoView';
 import './App.css';
-import {BrowserRouter, Route, Link, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
-class App extends React.Component{
-    render(){
-        return(
+class App extends React.Component {
+    render() {
+        return (
             <BrowserRouter>
                 <Switch>
-                    <Route exact path="/" render={()=>(
+                    <Route exact path="/" render={(props) => (
                         <div>
-                            <AppHeader pageTitle="Login"/>
+                            <AppHeader pageTitle="Login" {...props}/>
                             <br/>
                             <SignInView/>
                         </div>
                     )}/>
-                    <Route path="/register" render={()=>(
+                    <Route path="/register" render={(props) => (
                         <div>
-                            <AppHeader pageTitle="Register"/>
+                            <AppHeader pageTitle="Register" {...props}/>
                             <br/>
                             <RegisterView/>
+                            <br/>
                         </div>
                     )}/>
-                    <Route path="/todos" render={()=>(
+                    <Route path="/todos" render={(props) => (
                         <div>
-                            <AppHeader pageTitle="Your To-dos"/>
+                            <AppHeader pageTitle="Your To-dos" {...props}/>
                             <TodoView/>
                         </div>
                     )}/>

@@ -2,38 +2,36 @@
  * Created by Kyle on 5/23/17.
  */
 import React from 'react';
-import {Container, Row, Col, Button} from 'reactstrap';
+import {Container, Row, Button} from 'reactstrap';
 import TodoList from './TodoList';
 import TodoAdder from './TodoAdder';
 
-class TodoView extends React.Component{
-    constructor(props){
-
-
-        const BASETODOS = [
+class TodoView extends React.Component {
+    constructor(props) {
+        super(props);
+        const initialTodos = [
             {
-                "name": "Todo1", "done": true
+                "name": "Learn ES6", "done": true
             },
             {
-                "name": "Todo2", "done": false
+                "name": "Learn React", "done": true
             },
             {
-                "name": "Test todo3", "done": false
+                "name": "Integrate PactSafe API", "done": true
             },
             {
-                "name": "Todo4", "done":true
+                "name": "Win the lottery", "done": false
             }
         ];
-        super(props);
         this.state = {
-            todos: BASETODOS
+            todos: initialTodos
         };
         this.addTodo = this.addTodo.bind(this);
         this.completeTodo = this.completeTodo.bind(this);
         this.removeCompletedTodos = this.removeCompletedTodos.bind(this);
     }
 
-    addTodo(newTodoTitle){
+    addTodo(newTodoTitle) {
         if (!newTodoTitle) return;
         const newTodo = [
             {
@@ -47,7 +45,7 @@ class TodoView extends React.Component{
         });
     }
 
-    completeTodo(key){
+    completeTodo(key) {
         let todos = this.state.todos;
         todos[key]["done"] = !todos[key]["done"];
         this.setState({
@@ -55,11 +53,11 @@ class TodoView extends React.Component{
         });
     }
 
-    removeCompletedTodos(){
+    removeCompletedTodos() {
         let todos = this.state.todos;
         let uncompletedTodos = [];
-        for (let i = 0; i < todos.length; i++){
-            if (!todos[i]["done"]){
+        for (let i = 0; i < todos.length; i++) {
+            if (!todos[i]["done"]) {
                 uncompletedTodos.push(todos[i]);
             }
         }
@@ -68,8 +66,8 @@ class TodoView extends React.Component{
         })
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <Row>
                 <Container>
                     <br/>

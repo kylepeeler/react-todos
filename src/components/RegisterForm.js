@@ -3,25 +3,23 @@
  */
 /*global _ps*/
 
-import React, {Component} from 'react';
-import {Button, Form, FormGroup, Label, Input, FormText} from 'reactstrap';
+import React from 'react';
+import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import PSClickWrap from '../pactsafe-react-sdk/PSClickWrap';
 
-class RegisterForm extends Component{
-    constructor(props){
-        super(props);
+class RegisterForm extends React.Component {
 
-    }
-
-    registerUser(){
-        if(!_ps.getByKey("example-click-wrap").allChecked()){
+    registerUser() {
+        if (!_ps.getByKey("example-click-wrap").allChecked()) {
             alert("You must agree to our Terms & Conditions before registering!");
+        } else {
+            alert("User agreed to Terms & Conditions!");
         }
         //code to register the user with backend would go here
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <Form>
                 <FormGroup>
                     <Label for="firstName">First Name</Label>
@@ -48,7 +46,8 @@ class RegisterForm extends Component{
                     <Input type="password" name="confirmPassword" id="confirmPassword" placeholder=" Confirm Password"/>
                 </FormGroup>
 
-                <PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" groupKey="terms-and-conditions" signerIDSelector="email" testMode={true}/>
+                <PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" groupKey="terms-and-conditions"
+                             signerIDSelector="email" filter="id==1" testMode={true}/>
 
                 <Button color="primary" onClick={this.registerUser}>Register</Button>
                 <Button color="link">Return to login</Button>

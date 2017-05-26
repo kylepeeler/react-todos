@@ -1,11 +1,11 @@
 /**
  * Created by Kyle on 5/23/17.
  */
-import React, {Component} from 'react';
+import React from 'react';
 import {ListGroup} from 'reactstrap';
 import Todo from './Todo';
 
-class TodoList extends Component{
+class TodoList extends React.Component{
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
