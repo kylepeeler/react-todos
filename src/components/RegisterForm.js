@@ -10,10 +10,16 @@ import PSClickWrap from '../pactsafe-react-sdk/PSClickWrap';
 class RegisterForm extends React.Component {
 
     registerUser() {
-        if (!_ps.getByKey("example-click-wrap").allChecked()) {
-            alert("You must agree to our Terms & Conditions before registering!");
+        // ALL client-side validation would go here
+        // validate();
+
+        // Add a trigger to check status of PactSafe being checked
+        if(_ps.getByKey("terms-and-conditions").allChecked()){
+            console.log("Thanks for agreeing!");
+            //register the user
         } else {
-            alert("User agreed to Terms & Conditions!");
+            // do something if the user doesn't check all the boxes
+            console.log("Agree to our terms. Kthx!");
         }
         //code to register the user with backend would go here
     }
@@ -46,8 +52,8 @@ class RegisterForm extends React.Component {
                     <Input type="password" name="confirmPassword" id="confirmPassword" placeholder=" Confirm Password"/>
                 </FormGroup>
 
-                <PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" groupKey="terms-and-conditions"
-                             signerIDSelector="email" filter="id==1" testMode={true}/>
+                <PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" groupKey="terms-and-conditions" clickWrapStyle="embeded"
+                             signerIDSelector="email" testMode={true}/>
 
                 <Button color="primary" onClick={this.registerUser}>Register</Button>
                 <Button color="link">Return to login</Button>
