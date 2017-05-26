@@ -10,7 +10,7 @@ class Todo extends React.Component{
         const isDone = this.props.isDone;
         return(
             <ListGroupItem tag="li" onClick={this.props.onClick}>
-                <Input addon type="checkbox" aria-label="Checkbox for following text input" checked={isDone ? "checked" : "" }/>
+                <Input addon type="checkbox" aria-label="Checkbox for todo item" checked={isDone ? "checked" : "" } readOnly/>
                 &nbsp;&nbsp;
                 <span className={isDone ? "done" : ""}>{this.props.title}</span>
             </ListGroupItem>

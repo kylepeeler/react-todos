@@ -6,6 +6,7 @@ import AppHeader from './AppHeader';
 import RegisterView from './RegisterView'
 import SignInView from './SignInView';
 import TodoView from './TodoView';
+import './App.css';
 import {BrowserRouter, Route, Link, Switch} from 'react-router-dom';
 
 class App extends React.Component{
@@ -34,7 +35,6 @@ class App extends React.Component{
                         </div>
                     )}/>
                 </Switch>
-                {/*<Route path="/topics" component={Topics}/>*/}
             </BrowserRouter>
         );
     }

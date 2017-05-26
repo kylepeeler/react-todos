@@ -10,7 +10,7 @@ class LogInButtons extends Component{
         return(
             <div>
                 <Button color="primary" tag={Link} to="/todos" block={true}>Log In</Button>
-                <Button color="secondary" block={true}>Sign Up</Button>
+                <Button color="secondary" tag={Link} to="/register" block={true}>Sign Up</Button>
             </div>
         )
     }
