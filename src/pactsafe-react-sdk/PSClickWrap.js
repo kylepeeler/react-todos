@@ -2,25 +2,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class PSClickWrap extends React.Component{
-    constructor(props){
+class PSClickWrap extends React.Component {
+    constructor(props) {
         super(props);
         const PSUrl = "https://127.0.0.1:8081/ps.js";
-        (function(w,d,s,c,n,a,b){w['PactSafeObject']=n;w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments)}, w[n].on=function(){(w[n].e=w[n].e||[]).push(arguments)},w[n].once=function(){(w[n].eo=w[n].eo||[]).push(arguments)},w[n].off=function(){(w[n].o=w[n].o||[]).push(arguments)},w[n].t=1*new Date(); a=d.createElement(s),b=d.getElementsByTagName(s)[0];a.async=1;a.src=c;b.parentNode.insertBefore(a,b) })(window,document,'script',PSUrl,'_ps');
+        (function (window, document, script, src, pso, a, m) {
+            window['PactSafeObject'] = pso;
+            window[pso] = window[pso] || function () {
+                (window[pso].q = window[pso].q || []).push(arguments)
+            }, window[pso].on = function () {
+                (window[pso].e = window[pso].e || []).push(arguments)
+            }, window[pso].once = function () {
+                (window[pso].eo = window[pso].eo || []).push(arguments)
+            }, window[pso].off = function () {
+                (window[pso].o = window[pso].o || []).push(arguments)
+            }, window[pso].t = 1 * new Date();
+            a = document.createElement(script),
+            m = document.getElementsByTagName(script)[0];
+            a.async = 1;
+            a.src = src;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', PSUrl, '_ps');
     }
 
-    componentWillMount(){
-        if (!this.props.containerSelector){
+    componentWillMount() {
+        //set default container selector
+        if (!this.props.containerSelector) {
             this.containerSelector = "ps-clickwrap-container-" + Date.now();
-        }else{
+        } else {
             this.containerSelector = this.props.containerSelector;
         }
     }
 
-    componentDidMount(){
-
-        _ps('create', this.props.accessId, {test_mode: this.props.testMode, disable_sending: this.props.disableSending, dynamic: this.props.dynamic});
-        if (this.props.groupKey){
+    componentDidMount() {
+        _ps('create', this.props.accessId, {
+            test_mode: this.props.testMode,
+            disable_sending: this.props.disableSending,
+            dynamic: this.props.dynamic
+        });
+        if (this.props.groupKey) {
             _ps('load', this.props.groupKey, {
                 filter: this.props.filter,
                 container_selector: this.containerSelector,
@@ -29,7 +49,7 @@ class PSClickWrap extends React.Component{
                 display_all: this.props.displayAllContracts,
                 render_data: this.props.renderData
             });
-        }else {
+        } else {
             _ps('load', {
                 filter: this.props.filter,
                 container_selector: this.containerSelector,
@@ -42,13 +62,15 @@ class PSClickWrap extends React.Component{
         _ps.debug = true;
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
 
     }
 
-    render(){
-        return(
-            <div ref={el => this.el = el} id={this.containerSelector}></div>
+    render() {
+        return (
+            <div ref={el => this.el = el} id={this.containerSelector}>
+
+            </div>
         )
     }
 }
@@ -69,3 +91,6 @@ PSClickWrap.propTypes = {
     renderData: PropTypes.object
 };
 
+PSClickWrap.defaultProps = {
+    displayAllContracts: true
+};
