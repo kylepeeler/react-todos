@@ -9,8 +9,8 @@ class PSClickWrap extends React.Component {
         (function (window, document, script, src, pso, a, m) {
             window['PactSafeObject'] = pso;
             window[pso] = window[pso] || function () {
-                (window[pso].q = window[pso].q || []).push(arguments)
-            }, window[pso].on = function () {
+                    (window[pso].q = window[pso].q || []).push(arguments)
+                }, window[pso].on = function () {
                 (window[pso].e = window[pso].e || []).push(arguments)
             }, window[pso].once = function () {
                 (window[pso].eo = window[pso].eo || []).push(arguments)
@@ -18,20 +18,21 @@ class PSClickWrap extends React.Component {
                 (window[pso].o = window[pso].o || []).push(arguments)
             }, window[pso].t = 1 * new Date();
             a = document.createElement(script),
-            m = document.getElementsByTagName(script)[0];
+                m = document.getElementsByTagName(script)[0];
             a.async = 1;
             a.src = src;
             m.parentNode.insertBefore(a, m)
         })(window, document, 'script', PSUrl, '_ps');
-    }
-
-    componentWillMount() {
-        //set default container selector
+        //todo: fix this, Date.now is not reliable when rendering multiple clickwraps
         if (!this.props.containerSelector) {
             this.containerSelector = "ps-clickwrap-container-" + Date.now();
         } else {
             this.containerSelector = this.props.containerSelector;
         }
+    }
+
+    componentWillMount() {
+
     }
 
     componentDidMount() {

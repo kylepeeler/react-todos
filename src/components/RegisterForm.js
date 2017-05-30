@@ -25,6 +25,12 @@ class RegisterForm extends React.Component {
     }
 
     render() {
+        const data2render = {
+            vendor_name: "Kyle Peeler",
+            vendor_phone: "3178693251",
+            vendor_price: "$9000.00"
+        };
+
         return (
             <Form>
                 <FormGroup>
@@ -54,6 +60,9 @@ class RegisterForm extends React.Component {
 
                 <PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" groupKey="terms-and-conditions" clickWrapStyle="checkbox"
                              signerIDSelector="email" testMode={true} dynamic={false}/>
+
+                <PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" groupKey="test-dynamic-group" clickWrapStyle="scroll"
+                             signerIDSelector="email" testMode={true} dynamic={true} renderData={data2render}/>
 
                 <Button color="primary" onClick={this.registerUser}>Register</Button>
                 <Button color="link">Return to login</Button>
