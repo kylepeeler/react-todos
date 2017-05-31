@@ -3,26 +3,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class PSClickWrap extends React.Component {
+
     constructor(props) {
+        console.log("hit constructor");
         super(props);
         const PSUrl = "https://127.0.0.1:8081/ps.js";
-        (function (window, document, script, src, pso, a, m) {
-            window['PactSafeObject'] = pso;
-            window[pso] = window[pso] || function () {
-                    (window[pso].q = window[pso].q || []).push(arguments)
-                }, window[pso].on = function () {
-                (window[pso].e = window[pso].e || []).push(arguments)
-            }, window[pso].once = function () {
-                (window[pso].eo = window[pso].eo || []).push(arguments)
-            }, window[pso].off = function () {
-                (window[pso].o = window[pso].o || []).push(arguments)
-            }, window[pso].t = 1 * new Date();
-            a = document.createElement(script),
-                m = document.getElementsByTagName(script)[0];
-            a.async = 1;
-            a.src = src;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', PSUrl, '_ps');
+        if (!this.isSnippetLoaded(PSUrl)){
+            (function (window, document, script, src, pso, a, m) {
+                window['PactSafeObject'] = pso;
+                window[pso] = window[pso] || function () {
+                        (window[pso].q = window[pso].q || []).push(arguments)
+                    }, window[pso].on = function () {
+                    (window[pso].e = window[pso].e || []).push(arguments)
+                }, window[pso].once = function () {
+                    (window[pso].eo = window[pso].eo || []).push(arguments)
+                }, window[pso].off = function () {
+                    (window[pso].o = window[pso].o || []).push(arguments)
+                }, window[pso].t = 1 * new Date();
+                a = document.createElement(script),
+                    m = document.getElementsByTagName(script)[0];
+                a.async = 1;
+                a.src = src;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', PSUrl, '_ps');
+            _ps.debug = true;
+        }
+
+
         //todo: fix this, Date.now is not reliable when rendering multiple clickwraps
         if (!this.props.containerSelector) {
             this.containerSelector = "ps-clickwrap-container-" + Date.now();
@@ -31,16 +38,36 @@ class PSClickWrap extends React.Component {
         }
     }
 
-    componentWillMount() {
-
+    isSnippetLoaded(PSUrl) {
+        if (!PSUrl){
+            PSUrl = "https://127.0.0.1:8081/ps.js";
+        }
+        const scripts = document.getElementsByTagName('script');
+        for (let i = 0; i < scripts.length; i++){
+            if (scripts[i].src == PSUrl) return true;
+        }
+        return false;
     }
 
-    componentDidMount() {
+
+
+    componentWillMount() {
+        const props = this.props;
+        console.log("hit component will mount");
+        _ps.on('initialized', function(key, group) {
+            console.log('Group ' + key + ' has been initialized.');
+            _ps.getByKey(props.groupKey).render(true);
+        });
         _ps('create', this.props.accessId, {
             test_mode: this.props.testMode,
             disable_sending: this.props.disableSending,
             dynamic: this.props.dynamic
         });
+
+    }
+
+    componentDidMount() {
+        console.log("hit component did mount");
         if (this.props.groupKey) {
             _ps('load', this.props.groupKey, {
                 filter: this.props.filter,
@@ -49,7 +76,9 @@ class PSClickWrap extends React.Component {
                 style: this.props.clickWrapStyle,
                 display_all: this.props.displayAllContracts,
                 render_data: this.props.renderData
-            });
+            },
+            //todo: implement callback should go here
+            );
         } else {
             _ps('load', {
                 filter: this.props.filter,
@@ -58,13 +87,20 @@ class PSClickWrap extends React.Component {
                 style: this.props.clickWrapStyle,
                 display_all: this.props.displayAllContracts,
                 render_data: this.props.renderData
-            });
+            },
+            //todo: implement callback
+            );
         }
-        _ps.debug = true;
+        console.log("group key is ", this.props.groupKey);
+        // _ps.getByKey(this.props.groupKey).render(true);
+        // Listens for a Group to be initialized.
+
+
     }
 
     componentWillUnmount() {
-
+        console.log("attempting to remove " + this.props.accessId);
+        _ps.remove('s0');
     }
 
     render() {

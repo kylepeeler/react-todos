@@ -59,10 +59,10 @@ class RegisterForm extends React.Component {
                 </FormGroup>
 
                 <PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" groupKey="terms-and-conditions" clickWrapStyle="checkbox"
-                             signerIDSelector="email" testMode={true} dynamic={false}/>
+                             signerIDSelector="email" testMode={true} dynamic={false} containerSelector="test1"/>
 
-                <PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" groupKey="test-dynamic-group" clickWrapStyle="scroll"
-                             signerIDSelector="email" testMode={true} dynamic={true} renderData={data2render}/>
+                {/*<PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" groupKey="test-dynamic-group" clickWrapStyle="scroll"*/}
+                             {/*signerIDSelector="email" testMode={true} dynamic={true} renderData={data2render}/>*/}
 
                 <Button color="primary" onClick={this.registerUser}>Register</Button>
                 <Button color="link">Return to login</Button>
