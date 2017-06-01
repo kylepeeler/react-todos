@@ -62,7 +62,6 @@ class PSClickWrap extends React.Component {
 
 
     componentWillMount() {
-        console.log("hit component will mount");
         _ps('create', this.props.accessId, {
             test_mode: this.props.testMode,
             disable_sending: this.props.disableSending,
@@ -72,7 +71,6 @@ class PSClickWrap extends React.Component {
     }
 
     componentDidMount() {
-        console.log("hit component did mount");
         const groupKey = this.props.groupKey;
         if (groupKey) {
             _ps('load', groupKey, {
@@ -82,7 +80,7 @@ class PSClickWrap extends React.Component {
                 style: this.props.clickWrapStyle,
                 display_all: this.props.displayAllContracts,
                 render_data: this.props.renderData,
-                event_callback: function (param1, param2) {
+                event_callback: function () {
                     //force the group to render on mount
                     _ps.getByKey(groupKey).render(true);
                 }
@@ -97,10 +95,6 @@ class PSClickWrap extends React.Component {
                 render_data: this.props.renderData
             });
         }
-    }
-
-    componentWillUnmount() {
-        // _ps.remove('s0');
     }
 
     render() {
