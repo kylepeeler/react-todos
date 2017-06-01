@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 class PSClickWrap extends React.Component {
 
     constructor(props) {
-        console.log("hit constructor");
         super(props);
-        const PSUrl = "https://127.0.0.1:8081/ps.js";
+        this.isSnippetLoaded = this.isSnippetLoaded.bind(this);
+        const PSUrl = this.props.psScriptURL;
         if (!this.isSnippetLoaded(PSUrl)){
             (function (window, document, script, src, pso, a, m) {
                 window['PactSafeObject'] = pso;
@@ -29,7 +29,6 @@ class PSClickWrap extends React.Component {
             _ps.debug = true;
         }
 
-
         //todo: fix this, Date.now is not reliable when rendering multiple clickwraps
         if (!this.props.containerSelector) {
             this.containerSelector = "ps-clickwrap-container-" + Date.now();
@@ -40,11 +39,11 @@ class PSClickWrap extends React.Component {
 
     isSnippetLoaded(PSUrl) {
         if (!PSUrl){
-            PSUrl = "https://127.0.0.1:8081/ps.js";
+            PSUrl = this.props.psScriptURL;
         }
         const scripts = document.getElementsByTagName('script');
         for (let i = 0; i < scripts.length; i++){
-            if (scripts[i].src == PSUrl) return true;
+            if (scripts[i].src === PSUrl) return true;
         }
         return false;
     }
@@ -52,12 +51,7 @@ class PSClickWrap extends React.Component {
 
 
     componentWillMount() {
-        const props = this.props;
         console.log("hit component will mount");
-        _ps.on('initialized', function(key, group) {
-            console.log('Group ' + key + ' has been initialized.');
-            _ps.getByKey(props.groupKey).render(true);
-        });
         _ps('create', this.props.accessId, {
             test_mode: this.props.testMode,
             disable_sending: this.props.disableSending,
@@ -68,17 +62,20 @@ class PSClickWrap extends React.Component {
 
     componentDidMount() {
         console.log("hit component did mount");
-        if (this.props.groupKey) {
-            _ps('load', this.props.groupKey, {
+        const groupKey = this.props.groupKey;
+        if (groupKey) {
+            _ps('load', groupKey, {
                 filter: this.props.filter,
                 container_selector: this.containerSelector,
                 signer_id_selector: this.props.signerIDSelector,
                 style: this.props.clickWrapStyle,
                 display_all: this.props.displayAllContracts,
-                render_data: this.props.renderData
-            },
-            //todo: implement callback should go here
-            );
+                render_data: this.props.renderData,
+                event_callback: function(param1, param2){
+                    //force the group to render on mount
+                    _ps.getByKey(groupKey).render(true);
+                }
+            });
         } else {
             _ps('load', {
                 filter: this.props.filter,
@@ -86,12 +83,14 @@ class PSClickWrap extends React.Component {
                 signer_id_selector: this.props.signerIDSelector,
                 style: this.props.clickWrapStyle,
                 display_all: this.props.displayAllContracts,
-                render_data: this.props.renderData
-            },
-            //todo: implement callback
-            );
+                render_data: this.props.renderData,
+                event_callback: function(param1, param2){
+                    console.log("Param 1: ", param1);
+                    console.log("Param 2: ", param2);
+                }
+            });
         }
-        console.log("group key is ", this.props.groupKey);
+        console.log("group key is ", groupKey);
         // _ps.getByKey(this.props.groupKey).render(true);
         // Listens for a Group to be initialized.
 
@@ -99,8 +98,7 @@ class PSClickWrap extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log("attempting to remove " + this.props.accessId);
-        _ps.remove('s0');
+        // _ps.remove('s0');
     }
 
     render() {
@@ -125,9 +123,11 @@ PSClickWrap.propTypes = {
     clickWrapStyle: PropTypes.string,
     displayAllContracts: PropTypes.bool,
     dynamic: PropTypes.bool,
-    renderData: PropTypes.object
+    renderData: PropTypes.object,
+    psScriptURL: PropTypes.string.isRequired
 };
 
 PSClickWrap.defaultProps = {
-    displayAllContracts: true
+    displayAllContracts: true,
+    psScriptURL: "//vault.pactsafe.io/ps.min.js"
 };
