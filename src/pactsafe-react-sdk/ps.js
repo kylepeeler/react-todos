@@ -3177,6 +3177,7 @@
         if (document.addEventListener) {
           document.addEventListener("DOMContentLoaded", ready, !1);
           window.addEventListener("load", ready, !1);
+          window.addEventListener("load", ready, !1);
         }
         else {
           document.attachEvent("onreadystatechange", readyStateChange);

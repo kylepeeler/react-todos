@@ -58,19 +58,19 @@ class RegisterForm extends React.Component {
                     <Input type="password" name="confirmPassword" id="confirmPassword" placeholder=" Confirm Password"/>
                 </FormGroup>
 
-                <PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" filter="id==1" clickWrapStyle="full"
-                             signerIDSelector="email" testMode={true} dynamic={false} psScriptURL="https://127.0.0.1:8081/ps.js"/>
+                {/*<PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" filter="id==1" clickWrapStyle="full"*/}
+                             {/*signerIDSelector="email" testMode={true} dynamic={false} psScriptURL="https://127.0.0.1:8081/ps.js"/>*/}
 
-                <PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" filter="id==2" clickWrapStyle="full"
-                             signerIDSelector="email" testMode={true} dynamic={false} psScriptURL="https://127.0.0.1:8081/ps.js"/>
+                {/*<PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" filter="id==2" clickWrapStyle="full"*/}
+                             {/*signerIDSelector="email" testMode={true} dynamic={false} psScriptURL="https://127.0.0.1:8081/ps.js"/>*/}
 
-                <PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" filter="id==3" clickWrapStyle="full"
-                             signerIDSelector="email" testMode={true} dynamic={false} psScriptURL="https://127.0.0.1:8081/ps.js"/>
+                {/*<PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" filter="id==3" clickWrapStyle="full"*/}
+                             {/*signerIDSelector="email" testMode={true} dynamic={false} psScriptURL="https://127.0.0.1:8081/ps.js"/>*/}
 
 
 
-                {/*<PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" groupKey="test-dynamic-group" clickWrapStyle="scroll"*/}
-                             {/*signerIDSelector="email" testMode={true} dynamic={true} renderData={data2render}/>*/}
+                <PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" groupKey="terms-and-conditions" clickWrapStyle="scroll"
+                             signerIDSelector="email" testMode={true} psScriptURL="https://127.0.0.1:8081/ps.js" containerName="testContainer"/>
 
                 <Button color="primary" onClick={this.registerUser}>Register</Button>
                 <Button color="link">Return to login</Button>

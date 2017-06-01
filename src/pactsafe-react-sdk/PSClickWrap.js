@@ -25,15 +25,12 @@ class PSClickWrap extends React.Component {
                     m = document.getElementsByTagName(script)[0];
                 a.async = 1;
                 a.src = src;
-                m.parentNode.insertBefore(a, m)
+                m.parentNode.insertBefore(a, m);
+                window[pso].debug = true;
             })(window, document, 'script', PSUrl, '_ps');
-            _ps.debug = true;
         }
-
-        if (!this.props.containerSelector) {
-            this.containerSelector = "ps-cwc-" + this.generateUUID();;
-        } else {
-            this.containerSelector = this.props.containerSelector;
+        else {
+            _ps.enableDebug();
         }
     }
 
@@ -75,20 +72,20 @@ class PSClickWrap extends React.Component {
         if (groupKey) {
             _ps('load', groupKey, {
                 filter: this.props.filter,
-                container_selector: this.containerSelector,
+                container_selector: this.props.containerName,
                 signer_id_selector: this.props.signerIDSelector,
                 style: this.props.clickWrapStyle,
                 display_all: this.props.displayAllContracts,
                 render_data: this.props.renderData,
-                event_callback: function () {
-                    //force the group to render on mount
-                    _ps.getByKey(groupKey).render(true);
+                event_callback: function (err, group) {
+                    group.render();
                 }
+
             });
         } else {
             _ps('load', {
                 filter: this.props.filter,
-                container_selector: this.containerSelector,
+                container_selector: this.props.containerName,
                 signer_id_selector: this.props.signerIDSelector,
                 style: this.props.clickWrapStyle,
                 display_all: this.props.displayAllContracts,
@@ -98,10 +95,16 @@ class PSClickWrap extends React.Component {
     }
 
     render() {
+        console.log("render");
         return (
-            <div id={this.containerSelector}></div>
+            <div id={this.props.containerName}>Div is on the page</div>
         )
     }
+
+    componentWillUnmount(){
+        _ps.getByKey(this.props.groupKey).rendered = false;
+    }
+
 }
 
 export default PSClickWrap;
@@ -110,7 +113,7 @@ PSClickWrap.propTypes = {
     accessId: PropTypes.string.isRequired,
     groupKey: PropTypes.string,
     signerIDSelector: PropTypes.string.isRequired,
-    containerSelector: PropTypes.string,
+    containerName: PropTypes.string.isRequired,
     testMode: PropTypes.bool,
     disableSending: PropTypes.bool,
     filter: PropTypes.string,
