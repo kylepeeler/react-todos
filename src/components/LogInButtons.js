@@ -4,6 +4,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Button} from 'reactstrap';
+import PSClickWrap from '../pactsafe-react-sdk/PSClickWrap';
+
 
 class LogInButtons extends React.Component {
     render() {

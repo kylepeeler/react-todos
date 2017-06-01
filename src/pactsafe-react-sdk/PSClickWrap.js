@@ -6,9 +6,10 @@ class PSClickWrap extends React.Component {
 
     constructor(props) {
         super(props);
+        this.generateUUID = this.generateUUID.bind(this);
         this.isSnippetLoaded = this.isSnippetLoaded.bind(this);
         const PSUrl = this.props.psScriptURL;
-        if (!this.isSnippetLoaded(PSUrl)){
+        if (!this.isSnippetLoaded(PSUrl)) {
             (function (window, document, script, src, pso, a, m) {
                 window['PactSafeObject'] = pso;
                 window[pso] = window[pso] || function () {
@@ -29,25 +30,35 @@ class PSClickWrap extends React.Component {
             _ps.debug = true;
         }
 
-        //todo: fix this, Date.now is not reliable when rendering multiple clickwraps
         if (!this.props.containerSelector) {
-            this.containerSelector = "ps-clickwrap-container-" + Date.now();
+            this.containerSelector = "ps-cwc-" + this.generateUUID();;
         } else {
             this.containerSelector = this.props.containerSelector;
         }
     }
 
+    generateUUID() {
+        let d = new Date().getTime();
+        if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+            d += performance.now(); //use high-precision timer if available
+        }
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            let r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+    }
+
     isSnippetLoaded(PSUrl) {
-        if (!PSUrl){
+        if (!PSUrl) {
             PSUrl = this.props.psScriptURL;
         }
         const scripts = document.getElementsByTagName('script');
-        for (let i = 0; i < scripts.length; i++){
+        for (let i = 0; i < scripts.length; i++) {
             if (scripts[i].src === PSUrl) return true;
         }
         return false;
     }
-
 
 
     componentWillMount() {
@@ -71,7 +82,7 @@ class PSClickWrap extends React.Component {
                 style: this.props.clickWrapStyle,
                 display_all: this.props.displayAllContracts,
                 render_data: this.props.renderData,
-                event_callback: function(param1, param2){
+                event_callback: function (param1, param2) {
                     //force the group to render on mount
                     _ps.getByKey(groupKey).render(true);
                 }
@@ -83,18 +94,9 @@ class PSClickWrap extends React.Component {
                 signer_id_selector: this.props.signerIDSelector,
                 style: this.props.clickWrapStyle,
                 display_all: this.props.displayAllContracts,
-                render_data: this.props.renderData,
-                event_callback: function(param1, param2){
-                    console.log("Param 1: ", param1);
-                    console.log("Param 2: ", param2);
-                }
+                render_data: this.props.renderData
             });
         }
-        console.log("group key is ", groupKey);
-        // _ps.getByKey(this.props.groupKey).render(true);
-        // Listens for a Group to be initialized.
-
-
     }
 
     componentWillUnmount() {
@@ -103,9 +105,7 @@ class PSClickWrap extends React.Component {
 
     render() {
         return (
-            <div ref={el => this.el = el} id={this.containerSelector}>
-
-            </div>
+            <div id={this.containerSelector}></div>
         )
     }
 }
