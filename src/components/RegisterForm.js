@@ -5,7 +5,9 @@
 
 import React from 'react';
 import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
+import {Link} from 'react-router-dom';
 import PSClickWrap from '../pactsafe-react-sdk/PSClickWrap';
+import PSBrowseWrap from '../pactsafe-react-sdk/PSBrowseWrap';
 
 class RegisterForm extends React.Component {
 
@@ -58,22 +60,14 @@ class RegisterForm extends React.Component {
                     <Input type="password" name="confirmPassword" id="confirmPassword" placeholder=" Confirm Password"/>
                 </FormGroup>
 
-                {/*<PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" filter="id==1" clickWrapStyle="full"*/}
-                             {/*signerIDSelector="email" testMode={true} dynamic={false} psScriptURL="https://127.0.0.1:8081/ps.js"/>*/}
+                <PSClickWrap accessId={'042fa156-b6a6-4181-abdb-782bad72b3e4'} psScriptURL={'https://127.0.0.1:8081/ps.js'} signerIDSelector={'email'} groupKey={'terms-and-conditions'}/>
+                <PSClickWrap accessId={'042fa156-b6a6-4181-abdb-782bad72b3e4'} psScriptURL={'https://127.0.0.1:8081/ps.js'} signerIDSelector={'email'} groupKey={'test-dynamic-group'} dynamic={true} renderData={data2render} containerName={"clickwrap2"}/>
 
-                {/*<PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" filter="id==2" clickWrapStyle="full"*/}
-                             {/*signerIDSelector="email" testMode={true} dynamic={false} psScriptURL="https://127.0.0.1:8081/ps.js"/>*/}
-
-                {/*<PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" filter="id==3" clickWrapStyle="full"*/}
-                             {/*signerIDSelector="email" testMode={true} dynamic={false} psScriptURL="https://127.0.0.1:8081/ps.js"/>*/}
-
-
-
-                <PSClickWrap accessId="042fa156-b6a6-4181-abdb-782bad72b3e4" groupKey="terms-and-conditions" clickWrapStyle="scroll"
-                             signerIDSelector="email" testMode={true} psScriptURL="https://127.0.0.1:8081/ps.js" containerName="testContainer"/>
 
                 <Button color="primary" onClick={this.registerUser}>Register</Button>
-                <Button color="link">Return to login</Button>
+                <Button color="link" tag={Link} to="/login">Return to login</Button>
+                <PSBrowseWrap psScriptURL={'https://127.0.0.1:8081/ps.js'} accessId={'042fa156-b6a6-4181-abdb-782bad72b3e4'} groupKey="test-browsewrap" linkText="Legal Center" position={'right'}/>
+
 
             </Form>
 

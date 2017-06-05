@@ -4,7 +4,7 @@
 import React from 'react';
 import {Container, Row, Col} from 'reactstrap';
 import AppNav from './AppNav';
-import logo from '../logo.svg';
+import logo from '../PSVaultLogo.svg';
 import './AppHeader.css';
 
 class AppHeader extends React.Component {

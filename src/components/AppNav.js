@@ -2,7 +2,7 @@
  * Created by Kyle on 5/23/17.
  */
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, NavLink as RRNavLink} from 'react-router-dom';
 import {Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
 
 class AppNav extends React.Component {
@@ -30,10 +30,10 @@ class AppNav extends React.Component {
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <NavLink tag={Link} to="/">{this.props.pathname === "/todos" ? "Logout" : "Login"}</NavLink>
+                            <NavLink tag={RRNavLink} to="/" exact>{this.props.pathname === "/todos" ? "Logout" : "Login"}</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} to="/register">Register</NavLink>
+                            <NavLink tag={RRNavLink} to="/register">Register</NavLink>
                         </NavItem>
                     </Nav>
                 </Collapse>

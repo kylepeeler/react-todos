@@ -6,7 +6,6 @@ class PSClickWrap extends React.Component {
 
     constructor(props) {
         super(props);
-        this.generateUUID = this.generateUUID.bind(this);
         this.isSnippetLoaded = this.isSnippetLoaded.bind(this);
         const PSUrl = this.props.psScriptURL;
         if (!this.isSnippetLoaded(PSUrl)) {
@@ -29,21 +28,6 @@ class PSClickWrap extends React.Component {
                 window[pso].debug = true;
             })(window, document, 'script', PSUrl, '_ps');
         }
-        else {
-            _ps.enableDebug();
-        }
-    }
-
-    generateUUID() {
-        let d = new Date().getTime();
-        if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
-            d += performance.now(); //use high-precision timer if available
-        }
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            let r = (d + Math.random() * 16) % 16 | 0;
-            d = Math.floor(d / 16);
-            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-        });
     }
 
     isSnippetLoaded(PSUrl) {
@@ -78,7 +62,11 @@ class PSClickWrap extends React.Component {
                 display_all: this.props.displayAllContracts,
                 render_data: this.props.renderData,
                 event_callback: function (err, group) {
-                    group.render();
+                    try{
+                        group.render();
+                    }catch(e){
+
+                    }
                 }
 
             });
@@ -97,17 +85,21 @@ class PSClickWrap extends React.Component {
     render() {
         console.log("render");
         return (
-            <div id={this.props.containerName}>Div is on the page</div>
+            <div id={this.props.containerName}>
+
+            </div>
         )
     }
 
     componentWillUnmount(){
-        _ps.getByKey(this.props.groupKey).rendered = false;
+        try{
+            _ps.getByKey(this.props.groupKey).rendered = false;
+        }catch(e){
+
+        }
     }
 
 }
-
-export default PSClickWrap;
 
 PSClickWrap.propTypes = {
     accessId: PropTypes.string.isRequired,
@@ -126,5 +118,8 @@ PSClickWrap.propTypes = {
 
 PSClickWrap.defaultProps = {
     displayAllContracts: true,
-    psScriptURL: "//vault.pactsafe.io/ps.min.js"
+    psScriptURL: "//vault.pactsafe.io/ps.min.js",
+    containerName: "ps-clickwrap"
 };
+
+export default PSClickWrap;
