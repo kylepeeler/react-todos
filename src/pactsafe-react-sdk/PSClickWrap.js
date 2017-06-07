@@ -1,6 +1,7 @@
 /*global _ps*/
 import React from 'react';
 import PropTypes from 'prop-types';
+import isRequiredIf from 'react-proptype-conditional-require';
 
 class PSClickWrap extends React.Component {
 
@@ -52,42 +53,39 @@ class PSClickWrap extends React.Component {
     }
 
     componentDidMount() {
+        const options = {
+            filter: this.props.filter,
+            container_selector: this.props.containerName,
+            signer_id_selector: this.props.signerIDSelector,
+            style: this.props.clickWrapStyle,
+            display_all: this.props.displayAll,
+            render_data: this.props.renderData,
+            auto_run: this.props.displayImmediately,
+            force_scroll: this.props.forceScroll
+        };
         const groupKey = this.props.groupKey;
         if (groupKey) {
             _ps('load', groupKey, {
-                filter: this.props.filter,
-                container_selector: this.props.containerName,
-                signer_id_selector: this.props.signerIDSelector,
-                style: this.props.clickWrapStyle,
-                display_all: this.props.displayAllContracts,
-                render_data: this.props.renderData,
+                ...options,
                 event_callback: function (err, group) {
                     try{
                         group.render();
                     }catch(e){
-
+                        console.log("Unable to re-render clickwrap")
                     }
                 }
 
             });
         } else {
             _ps('load', {
-                filter: this.props.filter,
-                container_selector: this.props.containerName,
-                signer_id_selector: this.props.signerIDSelector,
-                style: this.props.clickWrapStyle,
-                display_all: this.props.displayAllContracts,
-                render_data: this.props.renderData
+                ...options
             });
         }
     }
 
     render() {
-        console.log("render");
         return (
-            <div id={this.props.containerName}>
-
-            </div>
+            <div id={this.props.containerName}></div>
         )
     }
 
@@ -101,25 +99,32 @@ class PSClickWrap extends React.Component {
 
 }
 
+PSClickWrap.FILTER_OR_GROUPKEY_REQUIRED_ERROR_MESSAGE = 'PSClickWrap Error: You must provide either a groupKey or filter prop in order to use the PactSafe Clickwrap component!';
+PSClickWrap.MUST_PROVIDE_RENDER_DATA_ERROR_MESSAGE = 'PSClickWrap Error: You must provide a renderData prop when passing down the dynamic prop';
+
 PSClickWrap.propTypes = {
     accessId: PropTypes.string.isRequired,
-    groupKey: PropTypes.string,
+    groupKey: isRequiredIf(PropTypes.string, props => !props.hasOwnProperty('filter'), PSClickWrap.FILTER_OR_GROUPKEY_REQUIRED_ERROR_MESSAGE),
     signerIDSelector: PropTypes.string.isRequired,
     containerName: PropTypes.string.isRequired,
     testMode: PropTypes.bool,
     disableSending: PropTypes.bool,
-    filter: PropTypes.string,
+    filter: isRequiredIf(PropTypes.string, props => !props.hasOwnProperty('groupKey'), PSClickWrap.FILTER_OR_GROUPKEY_REQUIRED_ERROR_MESSAGE),
     clickWrapStyle: PropTypes.string,
-    displayAllContracts: PropTypes.bool,
+    displayAll: PropTypes.bool,
     dynamic: PropTypes.bool,
-    renderData: PropTypes.object,
-    psScriptURL: PropTypes.string.isRequired
+    renderData: isRequiredIf(PropTypes.object, props => (props.hasOwnProperty('dynamic') && props.dynamic === true), PSClickWrap.MUST_PROVIDE_RENDER_DATA_ERROR_MESSAGE),
+    psScriptURL: PropTypes.string.isRequired,
+    forceScroll: PropTypes.bool,
+    confirmationEmail: PropTypes.bool,
+    displayImmediately: PropTypes.bool
+
 };
 
 PSClickWrap.defaultProps = {
-    displayAllContracts: true,
     psScriptURL: "//vault.pactsafe.io/ps.min.js",
-    containerName: "ps-clickwrap"
+    containerName: "ps-clickwrap",
+    displayImmediately: true
 };
 
 export default PSClickWrap;

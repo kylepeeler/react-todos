@@ -1,6 +1,7 @@
 /* global _ps */
 import React from 'react';
 import PropTypes from 'prop-types';
+import isRequiredIf from 'react-proptype-conditional-require';
 
 class PSBrowseWrap extends React.Component{
     constructor(props){
@@ -27,18 +28,6 @@ class PSBrowseWrap extends React.Component{
             })(window, document, 'script', PSUrl, '_ps');
         }
         this.targetSelector = 'psbw-' + this.props.groupKey;
-    }
-
-    generateUUID() {
-        let d = new Date().getTime();
-        if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
-            d += performance.now(); //use high-precision timer if available
-        }
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            let r = (d + Math.random() * 16) % 16 | 0;
-            d = Math.floor(d / 16);
-            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-        });
     }
 
     isSnippetLoaded(PSUrl){
@@ -77,6 +66,8 @@ class PSBrowseWrap extends React.Component{
     }
 }
 
+PSBrowseWrap.MUST_PROVIDE_LINK_IF_OPEN_LEGAL_CENTER_FALSE = "PSBrowseWrap Error: You must provide a link prop if openLegalCenter is passed false"
+
 PSBrowseWrap.propTypes = {
     psScriptURL: PropTypes.string.isRequired,
     accessId: PropTypes.string.isRequired,
@@ -86,21 +77,12 @@ PSBrowseWrap.propTypes = {
     alwaysVisible: PropTypes.bool,
     badgeText: PropTypes.string,
     openLegalCenter: PropTypes.bool,
-    link: PropTypes.string
+    link: isRequiredIf(PropTypes.string, props => (props.hasOwnProperty('openLegalCenter') && props.openLegalCenter === false), PSBrowseWrap.MUST_PROVIDE_LINK_IF_OPEN_LEGAL_CENTER_FALSE)
 };
-
-// _ps('load', 'test-browsewrap', {
-//     target_selector: 'legal-center-link', //target selector, string
-//     position: 'middle', //left, middle, right
-//     badge_text: 'lol', //any string
-//     always_visible: true, //boolean
-//     open_legal_center: true //boolean
-// });
 
 PSBrowseWrap.defaultProps = {
     psScriptURL: "//vault.pactsafe.io/ps.min.js",
-    position: 'auto',
-    link: '#'
+    position: 'auto'
 };
 
 export default PSBrowseWrap;
