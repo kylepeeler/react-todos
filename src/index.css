@@ -9,3 +9,7 @@ body {
   border-color: #3888c2;
 }
 
+.app-header-logo{
+  height: 35px;
+  margin-right: 15px;
+}

@@ -4,6 +4,8 @@
 import React from 'react';
 import {Link, NavLink as RRNavLink} from 'react-router-dom';
 import {Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
+import logoblue from '../PSVaultLogoBlue.svg';
+
 
 class AppNav extends React.Component {
     constructor(props) {
@@ -26,7 +28,10 @@ class AppNav extends React.Component {
         return (
             <Navbar color="faded" light toggleable full>
                 <NavbarToggler right onClick={this.toggle}/>
-                <NavbarBrand href="/">PactSafe To-dos</NavbarBrand>
+                <NavbarBrand href="/">
+                    <img src={logoblue} className="app-header-logo" alt="logo"/>
+                    PactSafe To-dos
+                </NavbarBrand>
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
                         <NavItem>
