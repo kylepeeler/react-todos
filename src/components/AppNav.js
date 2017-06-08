@@ -37,9 +37,9 @@ class AppNav extends React.Component {
                         <NavItem>
                             <NavLink tag={RRNavLink} to="/" exact>{this.props.pathname === "/todos" ? "Logout" : "Login"}</NavLink>
                         </NavItem>
-                        <NavItem>
+                        {this.props.pathname !== '/todos' ? <NavItem>
                             <NavLink tag={RRNavLink} to="/register">Register</NavLink>
-                        </NavItem>
+                        </NavItem> : null}
                     </Nav>
                 </Collapse>
             </Navbar>

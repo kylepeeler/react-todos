@@ -59,13 +59,12 @@ class RegisterForm extends React.Component {
                     <Input type="password" name="confirmPassword" id="confirmPassword" placeholder=" Confirm Password"/>
                 </FormGroup>
 
-                <PSClickWrap accessId={'042fa156-b6a6-4181-abdb-782bad72b3e4'} psScriptURL={'https://127.0.0.1:8081/ps.js'} signerIDSelector={'email'} groupKey={'terms-and-conditions'} displayAll={true} forceScroll={false} clickWrapStyle={'checkbox'}/>
-                <PSClickWrap accessId={'042fa156-b6a6-4181-abdb-782bad72b3e4'} psScriptURL={'https://127.0.0.1:8081/ps.js'} filter={'id==1'} signerIDSelector={'email'}  dynamic={false} containerName={"clickwrap2"} displayAll={true} confirmationEmail={true}/>
+                <PSClickWrap accessId={'29ea80d9-d386-4cfd-a280-505e802ee732'} signerIDSelector={'email'} groupKey={'example-clickwrap'} displayAll={true} forceScroll={true} clickWrapStyle={'scroll'}/>
 
 
                 <Button color="primary" onClick={this.registerUser}>Register</Button>
                 <Button color="link" tag={Link} to="/login">Return to login</Button>
-                <PSBrowseWrap psScriptURL={'https://127.0.0.1:8081/ps.js'} accessId={'042fa156-b6a6-4181-abdb-782bad72b3e4'} groupKey="test-browsewrap" linkText="Legal Center" position={'right'} openLegalCenter={true}/>
+                {/*<PSBrowseWrap psScriptURL={'https://127.0.0.1:8081/ps.js'} accessId={'042fa156-b6a6-4181-abdb-782bad72b3e4'} groupKey="test-browsewrap" linkText="Legal Center" position={'right'} openLegalCenter={true}/>*/}
 
 
             </Form>
