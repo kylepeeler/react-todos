@@ -6,8 +6,7 @@
 import React from 'react';
 import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import {Link} from 'react-router-dom';
-import PSClickWrap from '../pactsafe-react-sdk/PSClickWrap';
-import PSBrowseWrap from '../pactsafe-react-sdk/PSBrowseWrap';
+import {PSClickWrap, PSBrowseWrap} from 'pactsafe-react-sdk';
 
 class RegisterForm extends React.Component {
 
